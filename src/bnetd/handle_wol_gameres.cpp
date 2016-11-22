@@ -1235,7 +1235,7 @@ namespace pvpgn
 		{
 			t_game * game = game_result->game;
 			t_game_result result;
-				t_game_result * results =  game_result->results
+			t_game_result * results =  game_result->results;
 			int resultnum;
 
 			switch (type) {
