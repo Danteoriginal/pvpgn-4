@@ -87,6 +87,8 @@ namespace pvpgn
 			return CLIENTTAG_TIBSUNXP;
 		case CLIENTTAG_REDALERT_UINT:
 			return CLIENTTAG_REDALERT;
+		case CLIENTTAG_REDALAFM_UINT:
+			return CLIENTTAG_REDALAFM;
 		case CLIENTTAG_REDALERT2_UINT:
 			return CLIENTTAG_REDALERT2;
 		case CLIENTTAG_DUNE2000_UINT:
@@ -230,6 +232,7 @@ namespace pvpgn
 		case CLIENTTAG_TIBERNSUN_UINT:
 		case CLIENTTAG_TIBSUNXP_UINT:
 		case CLIENTTAG_REDALERT_UINT:
+		case CLIENTTAG_REDALAFM_UINT:
 		case CLIENTTAG_REDALERT2_UINT:
 		case CLIENTTAG_DUNE2000_UINT:
 		case CLIENTTAG_NOX_UINT:
@@ -284,6 +287,7 @@ namespace pvpgn
 		case CLIENTTAG_TIBERNSUN_UINT:
 		case CLIENTTAG_TIBSUNXP_UINT:
 		case CLIENTTAG_REDALERT_UINT:
+		case CLIENTTAG_REDALAFM_UINT:
 		case CLIENTTAG_REDALERT2_UINT:
 		case CLIENTTAG_DUNE2000_UINT:
 		case CLIENTTAG_NOX_UINT:
@@ -338,6 +342,8 @@ namespace pvpgn
 			return "Tiberian Sun: Firestorm";
 		case CLIENTTAG_REDALERT_UINT:
 			return "Red Alert";
+		case CLIENTTAG_REDALAFM_UINT:
+			return "Red Alert: Aftermath";
 		case CLIENTTAG_REDALERT2_UINT:
 			return "Red Alert 2";
 		case CLIENTTAG_DUNE2000_UINT:
@@ -417,6 +423,7 @@ namespace pvpgn
 		}
 
 		switch (sku) {
+		/*    case 500:  Red Alert: Aftermath ladders  */
 		case 1000:  /* Westwood Chat */
 			return CLIENTTAG_WCHAT_UINT;
 			/*    case 1002: Internet Registration  */
