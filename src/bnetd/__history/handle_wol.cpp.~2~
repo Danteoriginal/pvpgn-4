@@ -1684,15 +1684,8 @@ namespace pvpgn
 
 			std::memset(data, 0, sizeof(data));
 
-			if ((numparams>=1) && (params[0]) && (text)) {
+			if ((numparams >= 1) && (params[0]) && (text)) {
 				cl_tag = tag_sku_to_uint(std::atoi(params[0]));
-
-				if (std::strcmp(params[0], "1005") == 0)
-					cl_tag = CLIENTTAG_REDALERT_UINT;
-				if (std::strcmp(params[0], "500") == 0)
-					cl_tag = CLIENTTAG_REDALAFM_UINT;
-
-		DEBUG1("Client wants LISTSEARCH for %s client", clienttag_get_title(cl_tag));
 
 				if (e = irc_get_ladderelems(text))
 				{
