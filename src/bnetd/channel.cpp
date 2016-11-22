@@ -229,6 +229,7 @@ namespace pvpgn
 				channel->log = NULL;
 			}
 
+			channel->minmembers = 0;
 			channel->gameType = 0;
 			channel->gameExtension = NULL;
 
