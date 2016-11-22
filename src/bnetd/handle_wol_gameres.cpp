@@ -1290,7 +1290,7 @@ namespace pvpgn
 					case game_result_win:
 						DEBUG0("Player 2 - LOSS");
 						results[1] = game_result_loss;
-						break
+						break;
 					case game_result_draw:
 						DEBUG0("Player 2 - DRAW");
 						results[1] = game_result_draw;
