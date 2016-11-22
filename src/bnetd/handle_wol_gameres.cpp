@@ -1260,6 +1260,10 @@ namespace pvpgn
 					DEBUG0("Player 1 - LOSS");
 					result = game_result_loss;
 					break;
+				case 64:
+					DEBUG0("Player 1 - DRAW");
+					result = game_result_draw;
+					break;
 				default:
 					DEBUG1("Got wrong resultnum %u", resultnum);
 					result = game_result_disconnect;
@@ -1286,6 +1290,10 @@ namespace pvpgn
 					case game_result_win:
 						DEBUG0("Player 2 - LOSS");
 						results[1] = game_result_loss;
+						break
+					case game_result_draw:
+						DEBUG0("Player 2 - DRAW");
+						results[1] = game_result_draw;
 						break;
 				}
 				
