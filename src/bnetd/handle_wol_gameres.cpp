@@ -42,6 +42,88 @@ namespace pvpgn
 	{
 
 		/* handlers prototypes */
+
+		static int _client_sern(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_sidn(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_sdfx(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_idno(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_gsku(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_dcon(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_lcon(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_type(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_trny(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_oosy(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_fini(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_dura(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_cred(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_shrt(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_supr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_mode(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_bamr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_crat(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_aipl(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_unit(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_scen(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_cmpl(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pngs(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pngr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_plrs(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_spid(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_time(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_afps(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_proc(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_memo(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_vidm(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_sped(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_vers(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_date(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_base(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_tibr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_shad(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_flag(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_tech(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_acco(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_brok(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_etim(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pspd(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_smem(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_svid(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_snam(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_gmap(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_dsvr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+
+		/* Renegade Player related functions */
+		static int _client_pnam(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_ploc(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_team(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pscr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_ppts(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_ptim(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_phlt(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pkil(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_ekil(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_akil(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_shot(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_hedf(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_torf(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_armf(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_legf(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_crtf(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pups(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_vkil(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_vtim(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_nkfv(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_squi(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_pcrd(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_bkil(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_hedr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_torr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_armr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_legr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_crtr(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+		static int _client_flgc(t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
+
+		/* Player related functions */
 		
 		static int _cl_nam_general(int num, t_wol_gameres_result * game_result, wol_gameres_type type, int size, void const * data);
 		template<int N>
