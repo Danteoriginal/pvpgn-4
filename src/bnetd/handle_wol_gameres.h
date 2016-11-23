@@ -51,7 +51,7 @@ namespace pvpgn
 			t_game_result * results;
 			int senderid;
 			t_account * myaccount;
-			t_account * otheraccount;
+			t_account ** accounts;
 
 		} t_wol_gameres_result;
 
