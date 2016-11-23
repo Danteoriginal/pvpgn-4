@@ -751,8 +751,7 @@ namespace pvpgn
 				// war3 game reporting is done elsewhere, so we can skip this function
 				return 0;
 
-			if ((game->clienttag == CLIENTTAG_WCHAT_UINT)
-				|| (game->clienttag == CLIENTTAG_DUNE2000_UINT) || (game->clienttag == CLIENTTAG_NOX_UINT)
+			if ((game->clienttag == CLIENTTAG_WCHAT_UINT) || (game->clienttag == CLIENTTAG_NOX_UINT)
 				|| (game->clienttag == CLIENTTAG_NOXQUEST_UINT) || (game->clienttag == CLIENTTAG_RENEGADE_UINT)
 				|| (game->clienttag == CLIENTTAG_RENGDFDS_UINT) || (game->clienttag == CLIENTTAG_EMPERORBD_UINT)
 				|| (game->clienttag == CLIENTTAG_LOFLORE3_UINT) || (game->clienttag == CLIENTTAG_WWOL_UINT))

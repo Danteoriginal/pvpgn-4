@@ -1449,7 +1449,11 @@ namespace pvpgn
 			
 			//RALT ladders
 			LadderKey RALT_solo(ladder_id_solo, CLIENTTAG_REDALERT_UINT, ladder_sort_default, ladder_time_default);
-			ladderMap.insert(std::make_pair(RALT_solo,LadderList(RALT_solo, referenceTypeAccount)));		
+			ladderMap.insert(std::make_pair(RALT_solo,LadderList(RALT_solo, referenceTypeAccount)));
+
+		    //DUNE2000 ladders
+		    LadderKey DN2K_solo(ladder_id_solo, CLIENTTAG_DUNE2000_UINT, ladder_sort_default, ladder_time_default);
+		    ladderMap.insert(std::make_pair(DN2K_solo,LadderList(DN2K_solo, referenceTypeAccount)));			
 
 		}
 
