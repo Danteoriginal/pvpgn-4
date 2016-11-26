@@ -712,10 +712,13 @@ namespace pvpgn
 			std::FILE *          fp;
 			char *          realname;
 			char *          tempname;
+			char const * tname;
 			unsigned int    i;
 			unsigned int    realcount;
+			time_t now=time(NULL);
 			t_ladder_info * ladder_info = NULL;
 			char            clienttag_str[5];
+			int discisloss;
 
 			if (!game)
 			{
@@ -742,6 +745,11 @@ namespace pvpgn
 				eventlog(eventlog_level_error, __FUNCTION__, "results array is NULL");
 				return -1;
 			}
+			
+			if (prefs_get_discisloss()==1 || game->option==game_option_ladder_countasloss)
+				discisloss = 1;
+			else
+				discisloss = 0;
 
 #ifdef WITH_LUA
 			lua_handle_game(game, NULL, luaevent_game_end);
@@ -775,7 +783,6 @@ namespace pvpgn
 			}
 			else
 			{
-				game_evaluate_results(game); // evaluate results from the reported results
 				/* "compact" the game; move all the real players to the top... */
 				realcount = 0;
 				for (i = 0; i < game->count; i++)
@@ -824,19 +831,20 @@ namespace pvpgn
 					game->bad = 1;
 				}
 			}
-
-			eventlog(eventlog_level_debug, __FUNCTION__, "realcount=%d count=%u", realcount, game->count);
-
-			if (realcount >= 1 && !game->bad)
+					
+			eventlog(eventlog_level_debug,"game_report","realcount=%d count=%u",realcount,game->count);
+			
+			if (realcount>=1 && !game->bad)
 			{
-				if (game_is_ladder(game))
+				if (game_get_type(game)==game_type_ladder ||
+					game_get_type(game)==game_type_ironman)
 				{
 					t_ladder_id id;
-
-					if (game_get_type(game) == game_type_ironman)
-						id = ladder_id_ironman;
-					else
+				
+					if (game_get_type(game)==game_type_ladder)
 						id = ladder_id_normal;
+					else
+						id = ladder_id_ironman;
 
 					for (i = 0; i < realcount; i++)
 					{
@@ -854,7 +862,17 @@ namespace pvpgn
 								account_inc_ladder_losses(game->players[i], game->clienttag, id);
 								break;
 							case game_result_disconnect:
-								account_inc_ladder_disconnects(game->players[i], game->clienttag, id);
+								if (discisloss)
+								{
+									account_inc_ladder_losses(game->players[i], game->clienttag, id);
+									account_set_ladder_last_result(game->players[i], game->clienttag, id, game_result_get_str(game_result_loss));
+								}
+								else
+								{
+									/* FIXME: do the first disconnect only stuff like below (Yoss: why?) */
+									account_inc_ladder_disconnects(game->players[i], game->clienttag, id);
+									account_set_ladder_last_result(game->players[i], game->clienttag, id, game_result_get_str(game_result_disconnect));
+								}
 								break;
 							default:
 								eventlog(eventlog_level_error, __FUNCTION__, "bad ladder game realplayer results[%u] = %u", i, game->results[i]);
@@ -878,8 +896,17 @@ namespace pvpgn
 								account_set_ladder_last_result(game->players[i], game->clienttag, id, game_result_get_str(game_result_draw));
 								break;
 							case game_result_disconnect:
-								account_inc_ladder_disconnects(game->players[i], game->clienttag, id);
-								account_set_ladder_last_result(game->players[i], game->clienttag, id, game_result_get_str(game_result_disconnect));
+								if (discisloss)
+								{
+									account_inc_ladder_losses(game->players[i],game->clienttag,id);
+									account_set_ladder_last_result(game->players[i],game->clienttag,id,game_result_get_str(game_result_loss));
+								}
+								else
+								{
+									/* FIXME: do the first disconnect only stuff like below */
+									account_inc_ladder_disconnects(game->players[i],game->clienttag,id);
+									account_set_ladder_last_result(game->players[i],game->clienttag,id,game_result_get_str(game_result_disconnect));
+								}
 								break;
 							default:
 								eventlog(eventlog_level_error, __FUNCTION__, "bad ladder game realplayer results[%u] = %u", i, game->results[i]);
@@ -889,7 +916,6 @@ namespace pvpgn
 							account_set_ladder_last_time(game->players[i], game->clienttag, id, bnettime());
 						}
 					}
-
 					if ((tag_check_wolv1(game->clienttag)) || (tag_check_wolv2(game->clienttag))) {
 						id = ladder_id_solo;
 						ladder_update_wol(game->clienttag, id, game->players, game->results);
@@ -908,6 +934,8 @@ namespace pvpgn
 				else
 				{
 					if (!(tag_check_wolv1(game->clienttag)) || !(tag_check_wolv2(game->clienttag))) {
+						
+						int disc_set = 0;
 						for (i = 0; i < realcount; i++)
 						{
 							switch (game->results[i])
@@ -925,11 +953,31 @@ namespace pvpgn
 								account_set_normal_last_result(game->players[i], game->clienttag, game_result_get_str(game_result_draw));
 								break;
 							case game_result_disconnect:
-								account_inc_normal_disconnects(game->players[i], game->clienttag);
-								account_set_normal_last_result(game->players[i], game->clienttag, game_result_get_str(game_result_disconnect));
+								if (discisloss)
+								{
+									account_inc_normal_losses(game->players[i],game->clienttag);
+									account_set_normal_last_result(game->players[i],game->clienttag,game_result_get_str(game_result_loss));
+								}
+								else
+								{
+									/* FIXME: Is the missing player always the first one in this array?  It seems like it should be
+									   the person that created the game */
+									if (!disc_set)
+									{
+										account_inc_normal_disconnects(game->players[i],game->clienttag);
+										disc_set = 1;
+									}
+									account_set_normal_last_result(game->players[i],game->clienttag,game_result_get_str(game_result_disconnect));
+								}
 								break;
 							default:
 								eventlog(eventlog_level_error, __FUNCTION__, "bad normal game realplayer results[%u] = %u", i, game->results[i]);
+								/* FIXME: Jung-woo fixed this here but we should find out what value results[i] has...
+								and why "discisloss" isn't set above in game_result_disconnect */
+#if 0
+								/* commented out for loose disconnect policy */
+								/* account_inc_normal_disconnects(game->players[i],game->clienttag); */
+#endif
 								account_inc_normal_disconnects(game->players[i], game->clienttag);
 								account_set_normal_last_result(game->players[i], game->clienttag, game_result_get_str(game_result_disconnect));
 							}
@@ -960,10 +1008,23 @@ namespace pvpgn
 					tmval->tm_min,
 					tmval->tm_sec);
 
-				tempname = (char*)xmalloc(std::strlen(prefs_get_reportdir()) + 1 + 1 + 5 + 1 + 2 + 1 + std::strlen(dstr) + 1 + 6 + 1);
-				std::sprintf(tempname, "%s/_bnetd-gr_%s_%06u", prefs_get_reportdir(), dstr, game->id);
-				realname = (char*)xmalloc(std::strlen(prefs_get_reportdir()) + 1 + 2 + 1 + std::strlen(dstr) + 1 + 6 + 1);
-				std::sprintf(realname, "%s/gr_%s_%06u", prefs_get_reportdir(), dstr, game->id);
+				if (!(tempname = (char*)xmalloc(std::strlen(prefs_get_reportdir())+1+1+5+1+2+1+std::strlen(dstr)+1+6+1)))
+				{
+					eventlog(eventlog_level_error,"game_report","could not allocate memory for tempname");
+					if (ladder_info)
+					xfree(ladder_info);
+					return -1;
+				}
+				std::sprintf(tempname,"%s/.bnetd-gr_%s_%06u",prefs_get_reportdir(),dstr,game->id);
+				if (!(realname = (char*)xmalloc(std::strlen(prefs_get_reportdir())+1+2+1+strlen(dstr)+1+6+1)))
+				{
+					eventlog(eventlog_level_error,"game_report","could not allocate memory for realname");
+					xfree(tempname);
+					if (ladder_info)
+					xfree(ladder_info);
+					return -1;
+				}
+				std::sprintf(realname,"%s/gr_%s_%06u",prefs_get_reportdir(),dstr,game->id);
 			}
 
 			if (!(fp = std::fopen(tempname, "w")))
