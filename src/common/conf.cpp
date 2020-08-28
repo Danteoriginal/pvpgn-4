@@ -21,6 +21,7 @@
 
 #include <cassert>
 #include <cstring>
+#include <string>
 
 #include "common/eventlog.h"
 #include "common/xalloc.h"
