@@ -451,7 +451,6 @@ void post_server_shutdown(int status)
 		news_unload();
 		versioncheck_unload();
 		autoupdate_unload();
-		adbannerlist.reset();
 		ipbanlist_save(prefs_get_ipbanfile());
 		ipbanlist_destroy();
 		helpfile_unload();
