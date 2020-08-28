@@ -3270,7 +3270,8 @@ namespace pvpgn
 				return -1;
 			}
 
-			eventlog(eventlog_level_trace, __FUNCTION__, "[%d] ad click2 for adid 0x%04hx from \"%s\"", conn_get_socket(c), bn_int_get(packet->u.client_adclick2.adid), conn_get_username(c)); bn_int_get(packet->u.client_adclick2.adid), conn_get_username(c)); conn_get_username(c));
+			eventlog(eventlog_level_trace, __FUNCTION__, "[%d] ad click2 for adid 0x%04hx from \"%s\"", conn_get_socket(c), bn_int_get(packet->u.client_adclick2.adid), conn_get_username(c));
+
 
 			AdBanner ad = AdBanner::find(conn_get_clienttag(c), conn_get_gamelang(c), bn_int_get(packet->u.client_adclick2.adid));
 			if (ad.empty())
